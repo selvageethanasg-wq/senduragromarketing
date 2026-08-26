@@ -2,721 +2,1252 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sendur Agro Marketing - Quality Products for Healthy Plants & Better Growth">
-    <title>Sendur Agro Marketing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sendur Agro Marketing | Quality Products for Healthy Plants & Better Growth</title>
+    <meta name="description" content="Premium agricultural e-commerce interface for plants, fertilisers, organic manure, and gardening essentials.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* =========================================
-           CSS VARIABLES & BASE STYLES
-           ========================================= */
         :root {
-            --primary: #2e7d32;
-            --primary-dark: #1b5e20;
-            --primary-light: #4caf50;
-            --accent: #ff9800;
-            --accent-hover: #f57c00;
-            --text-main: #333333;
-            --text-light: #666666;
-            --bg-body: #f8faf8;
-            --bg-card: #ffffff;
-            --border-color: #e0e0e0;
-            --wa-green: #25D366;
-            --wa-dark: #128C7E;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
-            --radius: 8px;
+            --primary: #15803d; /* Premium Green */
+            --primary-dark: #166534;
+            --primary-light: #dcfce7;
+            --accent: #f97316; /* Action Orange */
+            --accent-hover: #ea580c;
+            --text-dark: #1f2937;
+            --text-gray: #4b5563;
+            --text-light: #9ca3af;
+            --bg-body: #f3f4f6;
+            --bg-white: #ffffff;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius: 4px; /* Professional, not overly rounded */
+            --transition: all 0.2s ease-in-out;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-        body { color: var(--text-main); background-color: var(--bg-body); line-height: 1.6; }
-        h1, h2, h3, h4 { color: var(--primary-dark); margin-bottom: 0.5rem; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
-        img { max-width: 100%; height: auto; display: block; }
-        .hidden { display: none !important; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        /* =========================================
-           BUTTONS & CONTROLS
-           ========================================= */
-        .btn { display: inline-block; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; text-align: center; font-weight: 600; font-size: 1rem; transition: background 0.3s; }
-        .btn:hover { background: var(--primary-dark); }
-        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-outline:hover { background: var(--primary-light); color: white; border-color: var(--primary-light); }
-        .btn-wa { background: var(--wa-green); color: white; display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
-        .btn-wa:hover { background: var(--wa-dark); }
-        .btn-secondary { background: var(--text-light); }
-        .btn-secondary:hover { background: var(--text-main); }
-        
-        /* Quantity Selector */
-        .qty-wrapper { display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: var(--radius); overflow: hidden; width: max-content; margin: 10px 0; background: var(--bg-card);}
-        .qty-btn { background: #f0f0f0; border: none; padding: 8px 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; color: var(--text-main); }
-        .qty-btn:hover { background: #e0e0e0; }
-        .qty-input { width: 50px; text-align: center; border: none; font-size: 1rem; font-weight: 600; -moz-appearance: textfield; outline: none; }
-        .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        button, input, select, textarea { font-family: inherit; outline: none; }
+        button { cursor: pointer; border: none; background: none; }
 
-        /* =========================================
-           HEADER & NAVIGATION
-           ========================================= */
-        header { background: var(--bg-card); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1001; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); cursor: pointer; }
+        /* --- Header & Navigation --- */
+        .header {
+            background-color: var(--bg-white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
         
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-links li { cursor: pointer; font-weight: 500; font-size: 1.05rem; transition: color 0.3s; }
-        .nav-links li:hover { color: var(--primary-light); }
-        
-        .cart-icon { position: relative; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: 600; padding: 5px 10px; border-radius: var(--radius); background: #f0f7f0; color: var(--primary-dark);}
-        .cart-count { background: var(--accent); color: white; border-radius: 50%; padding: 2px 8px; font-size: 0.8rem; font-weight: bold; }
-        
-        .hamburger { display: none; cursor: pointer; font-size: 1.8rem; color: var(--primary-dark); background: none; border: none; padding: 5px; }
+        .top-bar {
+            background-color: var(--primary-dark);
+            color: white;
+            font-size: 12px;
+            padding: 5px 20px;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
 
-        /* =========================================
-           SECTIONS & LAYOUT
-           ========================================= */
-        section { padding: 60px 0; min-height: 60vh; }
-        .section-title { text-align: center; font-size: 2rem; margin-bottom: 40px; color: var(--primary-dark); }
+        .main-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-body);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .search-container:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
         
-        /* Hero Section */
-        .hero { background: linear-gradient(rgba(27, 94, 32, 0.85), rgba(27, 94, 32, 0.85)), url('https://placehold.co/1200x600/1b5e20/ffffff?text=[Placeholder+Hero+Image]') center/cover; color: white; text-align: center; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 65vh;}
-        .hero h1 { color: white; font-size: 2.8rem; margin-bottom: 20px; max-width: 800px; line-height: 1.2;}
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; color: #e8f5e9; }
-        .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;}
+        .search-btn:hover { background-color: var(--primary-dark); }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .action-icon {
+            position: relative;
+            font-size: 20px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
         
-        /* Home Categories */
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
-        .category-card { background: var(--bg-card); padding: 20px; text-align: center; border-radius: var(--radius); box-shadow: var(--shadow-sm); cursor: pointer; border: 1px solid var(--border-color); transition: all 0.3s;}
-        .category-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-3px);}
-        .category-card h3 { font-size: 1rem; margin: 0; color: var(--primary); }
+        .action-icon:hover { color: var(--primary); }
 
-        /* Shop Controls & Grid */
-        .shop-controls { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm);}
-        .shop-controls input, .shop-controls select { padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius); flex: 1; min-width: 200px; font-size: 1rem; outline: none;}
-        .shop-controls input:focus, .shop-controls select:focus { border-color: var(--primary); }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--text-dark);
+        }
+
+        .sub-nav {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .sub-nav-links {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .sub-nav-links li {
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sub-nav-links li:hover, .sub-nav-links li.active {
+            background-color: var(--primary-dark);
+        }
+
+        /* --- Global Layout --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+        .view-all {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover { background-color: var(--accent-hover); box-shadow: var(--shadow-md); }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-whatsapp:hover { background-color: #128C7E; box-shadow: var(--shadow-md); }
+
+        .hero-features {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .hero-feature { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--primary); }
+
+        /* --- Categories --- */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .category-name {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        /* --- Product Grid --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .badge-sale {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #fff;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .product-info {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .product-name:hover { color: var(--primary); }
+
+        .product-pack {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+            background: var(--bg-body);
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 2px;
+            align-self: flex-start;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .price { font-size: 20px; font-weight: 700; color: var(--text-dark); }
+        .mrp { font-size: 14px; color: var(--text-light); text-decoration: line-through; }
+        .discount { font-size: 12px; font-weight: 700; color: var(--primary); }
+
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-cart, .btn-buy-wa {
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .btn-cart {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: var(--primary-light);
+        }
+        .btn-cart:hover { background-color: var(--primary); color: white; }
+
+        .btn-buy-wa {
+            background-color: #25D366;
+            color: white;
+        }
+        .btn-buy-wa:hover { background-color: #128C7E; }
+
+        /* --- Views Toggle --- */
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Product Details View --- */
+        .product-details-container {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            display: flex;
+            padding: 30px;
+            gap: 40px;
+        }
+
+        .pd-image-section { flex: 1; text-align: center; }
+        .pd-image { width: 100%; max-width: 400px; border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 20px; }
         
-        /* Modern Product Card */
-        .product-card { background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border-color); overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; display: flex; flex-direction: column; position: relative;}
-        .product-card:hover { box-shadow: var(--shadow-md); transform: translateY(-5px); }
-        .product-badge { position: absolute; top: 10px; right: 10px; background: var(--accent); color: white; padding: 4px 10px; font-size: 0.8rem; font-weight: bold; border-radius: 20px; }
-        .product-img { width: 100%; height: 220px; object-fit: cover; cursor: pointer; border-bottom: 1px solid var(--border-color); background: #f5f5f5;}
-        .product-info { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-        .product-cat { font-size: 0.85rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
-        .product-title { font-size: 1.15rem; margin: 5px 0; cursor: pointer; line-height: 1.3;}
-        .product-title:hover { color: var(--primary); }
-        .product-pack { font-size: 0.9rem; color: var(--text-light); margin-bottom: 10px; }
-        .price-wrap { font-size: 1.4rem; color: var(--primary-dark); font-weight: 700; margin: auto 0 15px 0; }
-        .discount { text-decoration: line-through; color: var(--text-light); font-size: 1rem; margin-right: 8px; font-weight: normal; }
+        .pd-info-section { flex: 1; }
+        .pd-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .pd-meta { margin-bottom: 20px; color: var(--text-gray); font-size: 14px; }
+        .pd-desc { margin-bottom: 20px; font-size: 15px; line-height: 1.6; color: var(--text-gray); border-top: 1px solid var(--border-color); padding-top: 20px;}
         
-        .card-actions { display: flex; flex-direction: column; gap: 10px; }
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            width: fit-content;
+            margin-bottom: 20px;
+        }
+        .qty-btn { padding: 8px 15px; background: var(--bg-body); font-weight: 700; color: var(--text-dark); }
+        .qty-btn:hover { background: #e5e7eb; }
+        .qty-input { width: 50px; text-align: center; border: none; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); padding: 8px 0; font-weight: 500;}
 
-        /* Product Details Page */
-        .details-wrapper { background: var(--bg-card); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow-sm); }
-        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .details-img { width: 100%; height: auto; max-height: 450px; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--border-color); }
-        .reg-notice { background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 4px; color: #856404; font-size: 0.95rem; }
-        .info-list { margin: 20px 0; }
-        .info-list li { margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
+        .regulatory-notice {
+            background-color: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        /* Cart & Checkout */
-        .cart-container { background: var(--bg-card); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-        .empty-cart { text-align: center; padding: 40px 20px; }
-        .empty-cart h3 { color: var(--text-light); margin-bottom: 20px; }
+        /* --- Cart & Checkout View --- */
+        .layout-2col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .cart-items, .checkout-form {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+
+        .order-summary {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .cart-item:last-child { border-bottom: none; }
         
-        .cart-item { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--border-color); gap: 15px;}
-        .cart-item-img { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--border-color); }
-        .cart-item-info { flex: 1; min-width: 180px; }
-        .cart-item-price { font-weight: bold; font-size: 1.1rem; color: var(--primary); min-width: 80px; text-align: right;}
-        .remove-btn { color: #d32f2f; background: none; border: none; cursor: pointer; text-decoration: underline; font-size: 0.9rem; padding: 5px 0;}
-        
-        .cart-summary { margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: var(--radius); text-align: right; border: 1px solid var(--border-color);}
-        .cart-summary h3 { font-size: 1.5rem; margin-bottom: 20px; }
-        .cart-actions { display: flex; justify-content: flex-end; gap: 15px; flex-wrap: wrap; }
+        .cart-item-img { width: 80px; height: 80px; object-fit: contain; border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 5px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-title { font-weight: 500; margin-bottom: 5px; }
+        .cart-item-price { font-weight: 700; color: var(--primary); }
+        .btn-remove { color: var(--danger); font-size: 13px; margin-top: 10px; text-decoration: underline; }
 
-        .checkout-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
-        .checkout-form { background: var(--bg-card); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius); font-size: 1rem; outline: none;}
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
-        .order-summary-box { background: var(--bg-body); padding: 20px; border-radius: var(--radius); border: 1px solid var(--border-color); height: fit-content;}
-        .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; border-bottom: 1px solid #eee; padding-bottom: 10px;}
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; color: var(--text-gray); font-size: 15px; }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); font-size: 18px; font-weight: 700; color: var(--text-dark); }
 
-        /* Review & Content Cards */
-        .content-card { background: var(--bg-card); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 20px; }
-        .review-card { border-left: 4px solid var(--primary); background: #f9f9f9; padding: 20px; margin-bottom: 15px; border-radius: 0 var(--radius) var(--radius) 0; }
-        .placeholder-note { font-style: italic; color: var(--text-light); font-size: 0.9rem; display: block; margin-bottom: 15px;}
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; color: var(--text-dark); }
+        .form-control { width: 100%; padding: 10px 15px; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 15px; transition: var(--transition); }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-light); }
 
-        /* Footer */
-        footer { background: var(--primary-dark); color: white; padding: 60px 0 20px; margin-top: 40px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-bottom: 40px; }
-        .footer-grid h3 { color: white; margin-bottom: 20px; font-size: 1.2rem; position: relative; padding-bottom: 10px; }
-        .footer-grid h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: var(--accent); }
-        .footer-grid ul li { margin-bottom: 12px; cursor: pointer; transition: color 0.3s; }
-        .footer-grid ul li:hover { color: var(--accent); }
-        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.9rem; color: #ccc; }
+        .empty-state { text-align: center; padding: 40px 20px; }
+        .empty-icon { font-size: 48px; color: var(--text-light); margin-bottom: 15px; }
 
-        /* Floating WhatsApp Button */
-        .float-wa { position: fixed; bottom: 30px; right: 30px; background-color: var(--wa-green); color: #fff; border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.3s; text-decoration: none;}
-        .float-wa:hover { transform: scale(1.1); background-color: var(--wa-dark); }
-        .float-wa svg { width: 35px; height: 35px; fill: currentColor; }
+        /* --- Features / Trust Section --- */
+        .trust-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0; }
+        .trust-card { background: var(--bg-white); padding: 20px; text-align: center; border: 1px solid var(--border-color); border-radius: var(--border-radius); }
+        .trust-icon { font-size: 30px; color: var(--primary); margin-bottom: 15px; }
+        .trust-title { font-weight: 700; font-size: 15px; margin-bottom: 5px; }
+        .trust-desc { font-size: 13px; color: var(--text-gray); }
 
-        /* =========================================
-           RESPONSIVE DESIGN
-           ========================================= */
+        /* --- Static Pages (About/Contact) --- */
+        .static-page-card { background: var(--bg-white); padding: 30px; border: 1px solid var(--border-color); border-radius: var(--border-radius); margin-bottom: 30px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .contact-info p { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: var(--text-gray); }
+        .contact-info i { color: var(--primary); font-size: 18px; width: 20px; text-align: center; }
+
+        /* --- Footer --- */
+        .footer { background-color: var(--text-dark); color: white; padding: 40px 20px 20px; margin-top: 40px; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
+        .footer-col h4 { font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--primary-light); }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: #d1d5db; font-size: 14px; transition: var(--transition); }
+        .footer-col ul li a:hover { color: white; padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #374151; color: #9ca3af; font-size: 13px; max-width: 1400px; margin: 0 auto; }
+
+        /* --- Floating WhatsApp --- */
+        .floating-wa { position: fixed; bottom: 20px; right: 20px; background-color: #25D366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: var(--shadow-lg); z-index: 1000; transition: var(--transition); }
+        .floating-wa:hover { transform: scale(1.1); background-color: #128C7E; }
+
+        /* --- Toast Notification --- */
+        .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--text-dark); color: white; padding: 12px 24px; border-radius: var(--border-radius); font-size: 14px; box-shadow: var(--shadow-md); animation: slideUp 0.3s ease-out forwards; opacity: 0; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* --- Mobile Responsive --- */
         @media (max-width: 992px) {
-            .details-grid, .checkout-grid { grid-template-columns: 1fr; }
+            .layout-2col { grid-template-columns: 1fr; }
+            .order-summary { position: static; }
+            .product-details-container { flex-direction: column; padding: 20px; gap: 20px; }
+            .pd-image { max-width: 100%; }
         }
 
         @media (max-width: 768px) {
-            .hamburger { display: block; }
-            .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--bg-card); flex-direction: column; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); gap: 15px; border-top: 1px solid var(--border-color);}
-            .nav-links.active { display: flex; }
-            .hero h1 { font-size: 2.2rem; }
-            .cart-item { flex-direction: column; align-items: flex-start; }
-            .cart-item-price { text-align: left; }
-            .cart-actions { flex-direction: column; width: 100%; }
-            .cart-actions button { width: 100%; }
-            .float-wa { bottom: 20px; right: 20px; width: 50px; height: 50px; }
-            .float-wa svg { width: 28px; height: 28px; }
-            .category-grid { grid-template-columns: repeat(2, 1fr); }
+            .top-bar { display: none; }
+            .main-nav { padding: 10px 15px; }
+            .menu-btn { display: block; }
+            
+            /* Mobile Search integration */
+            .search-container { display: none; } 
+            .mobile-search { display: flex; padding: 10px 15px; background: var(--bg-white); border-bottom: 1px solid var(--border-color); }
+            .mobile-search .search-container { display: flex; width: 100%; max-width: 100%; }
+
+            .sub-nav { display: none; }
+            
+            /* Mobile Sidebar Menu */
+            .mobile-menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1001; }
+            .mobile-menu-overlay.active { display: block; }
+            .mobile-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; background: var(--bg-white); z-index: 1002; transition: var(--transition); overflow-y: auto; }
+            .mobile-menu.active { left: 0; }
+            .mm-header { background: var(--primary); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 700; }
+            .mm-links li { border-bottom: 1px solid var(--border-color); }
+            .mm-links li a { display: block; padding: 15px 20px; font-size: 15px; color: var(--text-dark); font-weight: 500; }
+            .mm-close { font-size: 24px; cursor: pointer; }
+
+            .hero { flex-direction: column; padding: 20px; text-align: center; }
+            .hero-title { font-size: 26px; }
+            .hero-features { flex-direction: column; align-items: center; gap: 10px; }
+
+            /* Horizontal Scroll Categories for Mobile */
+            .category-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 15px; -webkit-overflow-scrolling: touch; margin-right: -20px; padding-right: 20px; }
+            .category-card { min-width: 140px; scroll-snap-align: start; flex: 0 0 auto; }
+            
+            /* Compact Product Cards for Mobile */
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-right: -5px;}
+            .product-image { height: 140px; padding: 10px; }
+            .product-info { padding: 10px; }
+            .product-name { font-size: 13px; margin-bottom: 5px; }
+            .price { font-size: 16px; }
+            .mrp { font-size: 12px; }
+            .btn-cart, .btn-buy-wa { font-size: 12px; padding: 6px 0; }
+            
+            .contact-grid { grid-template-columns: 1fr; }
+            .floating-wa { bottom: 20px; right: 20px; width: 45px; height: 45px; font-size: 20px; }
         }
-        
-        @media (max-width: 480px) {
-            .product-grid { grid-template-columns: 1fr; }
-        }
+
+        /* --- Utilities --- */
+        .hide { display: none !important; }
+        .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 10px; }
+        .mb-4 { margin-bottom: 20px; }
+        .mt-4 { margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER & NAVIGATION -->
-    <header>
-        <div class="container navbar">
-            <div class="logo" onclick="navigate('home')" aria-label="Home">Sendur Agro Marketing</div>
+    <!-- Header -->
+    <div class="top-bar">
+        <span><i class="fas fa-phone-alt"></i> +91 99650 12131</span>
+        <span><i class="fas fa-map-marker-alt"></i> Attur, Tamil Nadu</span>
+    </div>
+
+    <header class="header">
+        <div class="main-nav">
+            <button class="menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
             
-            <ul class="nav-links" id="nav-menu">
-                <li onclick="navigate('home')">Home</li>
-                <!-- We pass true here to ensure clicking "Shop" from the navbar clears previous filters -->
-                <li onclick="navigate('shop', true)">Shop</li>
-                <li onclick="navigate('about')">About</li>
-                <li onclick="navigate('contact')">Contact</li>
-            </ul>
-            
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <div class="cart-icon" onclick="navigate('cart')" aria-label="View Cart">
-                    🛒 Cart <span class="cart-count" id="cart-count">0</span>
+            <div class="logo" onclick="navigateTo('home')">
+                <i class="fas fa-leaf"></i> Sendur Agro
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="desktop-search" class="search-input" placeholder="Search for plants, fertilizers, organic manure..." onkeypress="handleSearch(event)">
+                <button class="search-btn" onclick="executeSearch('desktop')"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-actions">
+                <div class="action-icon" title="Customer Support" onclick="window.open('https://wa.me/919965012131', '_blank')">
+                    <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                 </div>
-                <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+                <div class="action-icon" onclick="navigateTo('cart')" title="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </div>
             </div>
         </div>
+        
+        <!-- Mobile Search Bar -->
+        <div class="mobile-search">
+            <div class="search-container">
+                <input type="text" id="mobile-search" class="search-input" placeholder="Search products..." onkeypress="handleSearch(event)">
+                <button class="search-btn" onclick="executeSearch('mobile')"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        <!-- Desktop Category Nav -->
+        <nav class="sub-nav">
+            <ul class="sub-nav-links">
+                <li onclick="navigateTo('home')">Home</li>
+                <li onclick="navigateTo('shop')">All Products</li>
+                <li onclick="filterByCategory('Plants')">Plants</li>
+                <li onclick="filterByCategory('Fertilisers')">Fertilisers</li>
+                <li onclick="filterByCategory('Organic Manure')">Organic Manure</li>
+                <li onclick="filterByCategory('Plant Nutrition')">Plant Nutrition</li>
+                <li onclick="filterByCategory('Pest & Disease Control')">Pest Control</li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- SECTION: HOME -->
-    <!-- Fixed the nesting issue by removing the .hero class from the section tag -->
-    <section id="home" style="padding: 0; min-height: auto;">
-        <div class="hero">
-            <h1>Quality Products for Healthy Plants & Better Growth</h1>
-            <p>Your trusted source for plants, organic manure, fertilisers, and gardening essentials.</p>
-            <div class="hero-btns">
-                <button class="btn" onclick="navigate('shop', true)">Explore Shop</button>
-                <button onclick="openWhatsApp('Hello Sendur Agro Marketing, I would like to make an inquiry.')" class="btn btn-wa">Chat on WhatsApp</button>
-            </div>
+    <!-- Mobile Sidebar -->
+    <div class="mobile-menu-overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mm-header">
+            <span>Menu</span>
+            <i class="fas fa-times mm-close" onclick="toggleMobileMenu()"></i>
         </div>
-        
-        <div class="container" style="padding-top: 60px;">
-            <h2 class="section-title">Shop by Category</h2>
-            <div class="category-grid">
-                <div class="category-card" onclick="goToCategory('Plants')"><h3>🌱 Plants</h3></div>
-                <div class="category-card" onclick="goToCategory('Fertilisers')"><h3>🧪 Fertilisers</h3></div>
-                <div class="category-card" onclick="goToCategory('Organic Manure / Uram')"><h3>🍂 Organic Manure</h3></div>
-                <div class="category-card" onclick="goToCategory('Pest & Disease Control')"><h3>🛡️ Pest Control</h3></div>
-                <div class="category-card" onclick="goToCategory('Gardening Products')"><h3>🛠️ Gardening</h3></div>
-            </div>
-        </div>
+        <ul class="mm-links">
+            <li><a href="#" onclick="navigateTo('home'); toggleMobileMenu();">Home</a></li>
+            <li><a href="#" onclick="navigateTo('shop'); toggleMobileMenu();">Shop All Products</a></li>
+            <li><a href="#" onclick="filterByCategory('Plants'); toggleMobileMenu();">Plants</a></li>
+            <li><a href="#" onclick="filterByCategory('Fertilisers'); toggleMobileMenu();">Fertilisers</a></li>
+            <li><a href="#" onclick="filterByCategory('Organic Manure'); toggleMobileMenu();">Organic Manure / Uram</a></li>
+            <li><a href="#" onclick="filterByCategory('Plant Nutrition'); toggleMobileMenu();">Plant Nutrition</a></li>
+            <li><a href="#" onclick="filterByCategory('Pest & Disease Control'); toggleMobileMenu();">Pest & Disease Control</a></li>
+            <li><a href="#" onclick="filterByCategory('Gardening Products'); toggleMobileMenu();">Gardening Products</a></li>
+            <li><a href="#" onclick="navigateTo('about'); toggleMobileMenu();">About Us</a></li>
+            <li><a href="#" onclick="navigateTo('contact'); toggleMobileMenu();">Contact</a></li>
+        </ul>
+    </div>
 
-        <div class="container" style="padding-top: 60px; padding-bottom: 60px;">
-            <h2 class="section-title">Featured Products</h2>
-            <div class="product-grid" id="featured-grid">
-                <!-- Featured products injected here via JS -->
-            </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="btn btn-outline" onclick="navigate('shop', true)">View All Products</button>
-            </div>
-        </div>
-    </section>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="container">
 
-    <!-- SECTION: SHOP -->
-    <section id="shop" class="container hidden">
-        <h2 class="section-title">Our Products</h2>
-        <div class="shop-controls">
-            <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()" aria-label="Search products">
-            <select id="category-filter" onchange="filterProducts()" aria-label="Filter by category">
-                <option value="All">All Categories</option>
-                <option value="Plants">Plants</option>
-                <option value="Fertilisers">Fertilisers</option>
-                <option value="Organic Manure / Uram">Organic Manure / Uram</option>
-                <option value="Plant Nutrition">Plant Nutrition</option>
-                <option value="Pest & Disease Control">Pest & Disease Control</option>
-                <option value="Gardening Products">Gardening Products</option>
-            </select>
-            <select id="sort-filter" onchange="filterProducts()" aria-label="Sort products">
-                <option value="default">Sort by</option>
-                <option value="low">Price: Low to High</option>
-                <option value="high">Price: High to Low</option>
-            </select>
-        </div>
-        <div class="product-grid" id="product-grid">
-            <!-- Shop products injected here via JS -->
-        </div>
-    </section>
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="home-view" class="view-section active">
+            <!-- Hero -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Quality Products for Healthy Plants & Better Growth</h1>
+                    <p class="hero-subtitle">Premium plants, fertilisers, organic manure, plant nutrition, and professional gardening essentials delivered safely.</p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn-primary" onclick="navigateTo('shop')">Shop Now <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/919965012131', '_blank')"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</button>
+                    </div>
+                    <div class="hero-features">
+                        <div class="hero-feature"><i class="fas fa-check-circle"></i> Fresh Products</div>
+                        <div class="hero-feature"><i class="fas fa-check-circle"></i> Easy WhatsApp Ordering</div>
+                        <div class="hero-feature"><i class="fas fa-check-circle"></i> Trusted Service</div>
+                    </div>
+                </div>
+            </section>
 
-    <!-- SECTION: PRODUCT DETAILS -->
-    <section id="product-details" class="container hidden">
-        <button class="btn btn-secondary" onclick="navigate('shop')" style="margin-bottom: 20px;">&larr; Back to Shop</button>
-        <div class="details-wrapper">
-            <div class="details-grid" id="details-container">
-                <!-- Details injected here via JS -->
+            <!-- Categories -->
+            <div class="section-title">
+                <span>Shop by Category</span>
             </div>
-        </div>
-    </section>
-
-    <!-- SECTION: CART -->
-    <section id="cart" class="container hidden">
-        <h2 class="section-title">Your Shopping Cart</h2>
-        <div class="cart-container">
-            <div id="cart-items">
-                <!-- Cart items injected here via JS -->
-            </div>
-            
-            <div id="cart-empty-msg" class="empty-cart hidden">
-                <h3>Your cart is currently empty.</h3>
-                <button class="btn" onclick="navigate('shop', true)">Start Shopping</button>
+            <div class="category-grid" id="home-categories">
+                <!-- Injected via JS -->
             </div>
 
-            <div id="cart-summary-section" class="cart-summary hidden">
-                <h3>Subtotal: ₹<span id="cart-total">0</span></h3>
-                <div class="cart-actions">
-                    <button class="btn btn-secondary" onclick="navigate('shop')">Continue Shopping</button>
-                    <button class="btn" onclick="goToCheckout()">Proceed to Checkout</button>
+            <!-- Featured Products -->
+            <div class="section-title">
+                <span>Featured Products</span>
+                <span class="view-all" onclick="navigateTo('shop')">View All <i class="fas fa-angle-right"></i></span>
+            </div>
+            <div class="product-grid" id="featured-products">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Trust Section -->
+            <div class="trust-section">
+                <div class="trust-card">
+                    <i class="fas fa-leaf trust-icon"></i>
+                    <h3 class="trust-title">Quality Agricultural Products</h3>
+                    <p class="trust-desc">Sourced from top manufacturers</p>
+                </div>
+                <div class="trust-card">
+                    <i class="fas fa-truck trust-icon"></i>
+                    <h3 class="trust-title">Delivery Support</h3>
+                    <p class="trust-desc">Safe and reliable transport</p>
+                </div>
+                <div class="trust-card">
+                    <i class="fab fa-whatsapp trust-icon" style="color: #25D366;"></i>
+                    <h3 class="trust-title">WhatsApp Ordering</h3>
+                    <p class="trust-desc">Simple & direct communication</p>
+                </div>
+                <div class="trust-card">
+                    <i class="fas fa-headset trust-icon"></i>
+                    <h3 class="trust-title">Customer Support</h3>
+                    <p class="trust-desc">Guidance for healthy plants</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- SECTION: CHECKOUT -->
-    <section id="checkout" class="container hidden">
-        <button class="btn btn-secondary" onclick="navigate('cart')" style="margin-bottom: 20px;">&larr; Back to Cart</button>
-        <h2 class="section-title">Checkout</h2>
-        
-        <div class="checkout-grid">
-            <div class="checkout-form">
-                <h3 style="margin-bottom: 20px;">Delivery Details</h3>
-                <p style="margin-bottom: 20px; font-size: 0.9rem; color: var(--text-light);">Please provide your details below. Your order will be formatted and sent securely to our WhatsApp for confirmation.</p>
-                <form id="checkout-form" onsubmit="processCheckout(event)">
-                    <div class="form-group">
-                        <label for="cust-name">Full Name *</label>
-                        <input type="text" id="cust-name" required placeholder="Enter your full name">
+        <!-- ==================== SHOP VIEW ==================== -->
+        <div id="shop-view" class="view-section">
+            <div class="section-title" id="shop-title">All Products</div>
+            
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div id="shop-result-count" style="color: var(--text-gray); font-size: 14px;">Showing all products</div>
+                <button onclick="clearFilters()" class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: var(--text-gray);">Clear Filters</button>
+            </div>
+
+            <div class="product-grid" id="shop-products">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- ==================== PRODUCT DETAILS VIEW ==================== -->
+        <div id="product-view" class="view-section">
+            <div style="margin-bottom: 15px;">
+                <span style="color: var(--text-light); font-size: 14px; cursor: pointer;" onclick="navigateTo('shop')"><i class="fas fa-arrow-left"></i> Back to Shop</span>
+            </div>
+            <div class="product-details-container" id="product-details-content">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- ==================== CART VIEW ==================== -->
+        <div id="cart-view" class="view-section">
+            <div class="section-title">Shopping Cart</div>
+            
+            <div class="layout-2col">
+                <div class="cart-items" id="cart-items-container">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <div class="order-summary">
+                    <h3 class="mb-4">Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Items Total</span>
+                        <span id="summary-items-total">₹0</span>
                     </div>
-                    <div class="form-group">
-                        <label for="cust-mobile">Mobile Number *</label>
-                        <input type="tel" id="cust-mobile" required placeholder="10-digit mobile number">
+                    <div class="summary-row">
+                        <span>Delivery Charge</span>
+                        <span>To be confirmed</span>
                     </div>
-                    <div class="form-group">
-                        <label for="cust-address">Complete Delivery Address *</label>
-                        <textarea id="cust-address" required rows="4" placeholder="Door No, Street, City, Pincode"></textarea>
+                    <div class="summary-total">
+                        <span>Grand Total</span>
+                        <span id="summary-grand-total">₹0</span>
                     </div>
-                    <button type="submit" class="btn btn-wa" style="width: 100%; font-size: 1.1rem; padding: 15px;">Send Order via WhatsApp</button>
-                </form>
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px; justify-content: center;" onclick="proceedToCheckout()" id="btn-checkout">Proceed to Checkout</button>
+                    <button class="btn-cart" style="width: 100%; margin-top: 10px;" onclick="navigateTo('shop')">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CHECKOUT VIEW ==================== -->
+        <div id="checkout-view" class="view-section">
+            <div class="section-title">Checkout Details</div>
+            <div class="regulatory-notice mb-4" style="background: #eef2ff; border-color: #c7d2fe; color: #3730a3;">
+                <i class="fas fa-info-circle"></i> We process all orders via WhatsApp to ensure accurate delivery charges and confirm product availability before payment.
+            </div>
+
+            <div class="layout-2col">
+                <div class="checkout-form">
+                    <h3 class="mb-4">Delivery Information</h3>
+                    <form id="order-form" onsubmit="processCheckout(event)">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" id="cust-name" class="form-control" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number *</label>
+                            <input type="tel" id="cust-mobile" class="form-control" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Delivery Address *</label>
+                            <textarea id="cust-address" class="form-control" rows="3" required placeholder="House No, Street, Landmark"></textarea>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label class="form-label">City/Town *</label>
+                                <input type="text" id="cust-city" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Pincode *</label>
+                                <input type="text" id="cust-pin" class="form-control" required pattern="[0-9]{6}">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-whatsapp" style="width: 100%; justify-content: center; margin-top: 15px; font-size: 18px; padding: 15px;">
+                            <i class="fab fa-whatsapp"></i> Send Order on WhatsApp
+                        </button>
+                    </form>
+                </div>
+
+                <div class="order-summary">
+                    <h3 class="mb-4">Order Review</h3>
+                    <div id="checkout-review-items" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+                        <!-- Injected via JS -->
+                    </div>
+                    <div class="summary-total" style="border: none; padding-top: 0;">
+                        <span>Total Estimate</span>
+                        <span id="checkout-grand-total">₹0</span>
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-light); text-align: right;">+ Delivery charges</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABOUT VIEW ==================== -->
+        <div id="about-view" class="view-section">
+            <div class="section-title">About Us</div>
+            <div class="static-page-card">
+                <h2 style="color: var(--primary-dark); margin-bottom: 15px;">Sendur Agro Marketing</h2>
+                <p style="margin-bottom: 15px; color: var(--text-gray); line-height: 1.8;">
+                    Welcome to Sendur Agro Marketing, your reliable partner for premium agricultural inputs. Located in Attur, Tamil Nadu, we are dedicated to providing high-quality products that promote healthy plant growth and better yields.
+                </p>
+                <p style="margin-bottom: 15px; color: var(--text-gray); line-height: 1.8;">
+                    Our comprehensive range includes premium plants, effective fertilisers, nutrient-rich organic manure (Uram), plant nutrition supplements, and reliable pest and disease control solutions. Whether you are managing a large farm or a home garden, we supply the essentials you need for success.
+                </p>
+                <p style="color: var(--text-gray); line-height: 1.8;">
+                    We pride ourselves on trusted customer service, offering convenient ordering via WhatsApp to ensure direct, personalized assistance for every purchase.
+                </p>
             </div>
             
-            <div>
-                <div class="order-summary-box">
-                    <h3>Order Summary</h3>
-                    <div id="checkout-items" style="margin: 20px 0;">
-                        <!-- Checkout items injected here via JS -->
+            <div class="section-title">Customer Reviews</div>
+            <div class="trust-section" style="margin-top: 0;">
+                <div class="trust-card">
+                    <div style="color: #fbbf24; margin-bottom: 10px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-size: 14px; color: var(--text-gray); font-style: italic;">"Excellent quality organic manure. My garden plants are thriving. Ordering on WhatsApp was very easy."</p>
+                    <h4 style="margin-top: 15px; font-size: 14px;">- Customer (Sample Review)</h4>
+                </div>
+                <div class="trust-card">
+                    <div style="color: #fbbf24; margin-bottom: 10px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p style="font-size: 14px; color: var(--text-gray); font-style: italic;">"Fast delivery and genuine products. The fertilizers recommended worked perfectly for my crops."</p>
+                    <h4 style="margin-top: 15px; font-size: 14px;">- Customer (Sample Review)</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CONTACT VIEW ==================== -->
+        <div id="contact-view" class="view-section">
+            <div class="section-title">Contact Us</div>
+            <div class="static-page-card contact-grid">
+                <div>
+                    <h3 style="color: var(--primary-dark); margin-bottom: 20px;">Get in Touch</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-store"></i> <strong>Sendur Agro Marketing</strong></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Vadakkadu, Kottai, Attur, Salem, Tamil Nadu, India</p>
+                        <p><i class="fas fa-phone-alt"></i> +91 99650 12131</p>
+                        <p><i class="fab fa-whatsapp"></i> +91 99650 12131</p>
                     </div>
-                    <div style="border-top: 2px solid var(--border-color); padding-top: 15px; margin-top: 15px;">
-                        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; color: var(--primary-dark);">
-                            <span>Total Amount:</span>
-                            <span>₹<span id="checkout-total">0</span></span>
+                    
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/919965012131', '_blank')"><i class="fab fa-whatsapp"></i> Message Us</button>
+                        <button class="btn-primary" onclick="window.location.href='tel:+919965012131'"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+                <div>
+                    <div style="background: #e5e7eb; width: 100%; height: 300px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; color: var(--text-gray); text-align: center; border: 1px solid var(--border-color);">
+                        <div>
+                            <i class="fas fa-map-marked-alt" style="font-size: 40px; margin-bottom: 10px; color: var(--text-light);"></i><br>
+                            Map location functionality<br> Vadakkadu, Kottai, Attur, Tamil Nadu
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- SECTION: ABOUT -->
-    <section id="about" class="container hidden">
-        <h2 class="section-title">About Sendur Agro Marketing</h2>
-        <div class="content-card">
-            <p>Sendur Agro Marketing is an agriculture-focused business dedicated to supplying quality plants, fertilisers, organic manure (Uram), and plant-care products to farmers, gardeners, and home plant growers.</p>
-            <p style="margin-top: 15px;">Our goal is to provide reliable agricultural inputs that support healthy plant growth and better yields. We source and supply products that meet the everyday needs of modern agriculture and home gardening.</p>
-            <br>
-            <span class="placeholder-note">[Note: Replace this section later with your exact founding year, specific achievements, or detailed company history. No unsupported claims are generated here.]</span>
-        </div>
+    </main>
 
-        <h2 class="section-title" style="margin-top: 60px;">Customer Reviews</h2>
-        <span class="placeholder-note" style="text-align: center; margin-bottom: 20px;">(Sample Reviews - Please replace with real customer feedback later)</span>
-        <div class="details-grid">
-            <div class="review-card">
-                <h4>⭐⭐⭐⭐⭐ "Great Organic Manure!"</h4>
-                <p>The Uram supplied by Sendur Agro has really helped my home garden flourish. Will buy again.</p>
-                <small>- Placeholder Customer 1</small>
-            </div>
-            <div class="review-card">
-                <h4>⭐⭐⭐⭐⭐ "Fast Delivery via WhatsApp"</h4>
-                <p>Ordered fertilisers over WhatsApp. Very easy process and received exactly what I needed on time.</p>
-                <small>- Placeholder Customer 2</small>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: CONTACT -->
-    <section id="contact" class="container hidden">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="details-grid">
-            <div class="content-card">
-                <h3>Sendur Agro Marketing</h3>
-                <ul class="info-list" style="border:none;">
-                    <li><strong>WhatsApp / Phone:</strong> +91 99650 12131</li>
-                    <li><strong>Email:</strong> [Your Email Placeholder]</li>
-                    <li><strong>Address:</strong></li>
-                </ul>
-                <p style="background: #f5f5f5; padding: 15px; border-radius: var(--radius); margin-bottom: 20px;">
-                    [Insert Real Business Address Here]<br>
-                    Narasingapuram, Tamil Nadu, India<br>
-                    PIN: [Insert PIN]
-                </p>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <button onclick="openWhatsApp('Hello Sendur Agro Marketing, I need some help.')" class="btn btn-wa">Chat on WhatsApp</button>
-                    <a href="tel:+919965012131" class="btn btn-outline">Call Us</a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Sendur Agro Marketing</h4>
+                <p style="color: #9ca3af; font-size: 14px; margin-bottom: 15px;">Quality Products for Healthy Plants & Better Growth. Your trusted source for agricultural and gardening essentials.</p>
+                <div style="display: flex; gap: 15px;">
+                    <a href="https://wa.me/919965012131" target="_blank" style="color: #25D366; font-size: 20px;"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            <div class="content-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
-                <div style="padding: 20px; background: #eee; text-align: center;">
-                    <em>[Google Maps Placeholder: Replace the gray box below with your Google Maps Embed Iframe]</em>
-                </div>
-                <div style="background:#e0e0e0; flex:1; min-height: 300px; display:flex; align-items:center; justify-content:center; color: var(--text-light);">
-                    Map will appear here
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container footer-grid">
-            <div>
-                <h3 style="font-size: 1.5rem; font-weight: bold; border: none;">Sendur Agro Marketing</h3>
-                <p style="color: #e8f5e9; margin-bottom: 15px;">Quality Products for Healthy Plants & Better Growth.</p>
-                <p>📞 +91 99650 12131</p>
-                <p>📍 Narasingapuram, TN</p>
-            </div>
-            <div>
-                <h3>Quick Links</h3>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
                 <ul>
-                    <li onclick="navigate('home')">Home</li>
-                    <li onclick="navigate('shop', true)">Shop Products</li>
-                    <li onclick="navigate('about')">About Us</li>
-                    <li onclick="navigate('contact')">Contact Us</li>
+                    <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+                    <li><a href="#" onclick="navigateTo('shop')">Shop Products</a></li>
+                    <li><a href="#" onclick="navigateTo('about')">About Us</a></li>
+                    <li><a href="#" onclick="navigateTo('contact')">Contact Us</a></li>
                 </ul>
             </div>
-            <div>
-                <h3>Customer Service</h3>
+            <div class="footer-col">
+                <h4>Categories</h4>
                 <ul>
-                    <li>Privacy Policy</li>
-                    <li>Terms & Conditions</li>
-                    <li>Shipping & Delivery</li>
-                    <li>Return / Refund Policy</li>
+                    <li><a href="#" onclick="filterByCategory('Plants')">Plants</a></li>
+                    <li><a href="#" onclick="filterByCategory('Fertilisers')">Fertilisers</a></li>
+                    <li><a href="#" onclick="filterByCategory('Organic Manure')">Organic Manure</a></li>
+                    <li><a href="#" onclick="filterByCategory('Pest & Disease Control')">Pest Control</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul style="color: #9ca3af; font-size: 14px;">
+                    <li style="display: flex; gap: 10px;"><i class="fas fa-phone-alt" style="margin-top: 3px;"></i> +91 99650 12131</li>
+                    <li style="display: flex; gap: 10px;"><i class="fas fa-map-marker-alt" style="margin-top: 3px;"></i> Vadakkadu, Kottai, Attur,<br>Salem, Tamil Nadu, India</li>
                 </ul>
             </div>
         </div>
-        <div class="container footer-bottom">
-            <p>&copy; 2026 Sendur Agro Marketing. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; color: #aaa;">Notice: For regulated agricultural chemicals, usage instructions must strictly follow the official manufacturer label attached to the physical product.</p>
+        <div class="footer-bottom">
+            &copy; 2026 Sendur Agro Marketing. All rights reserved.
         </div>
     </footer>
 
-    <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="javascript:void(0)" onclick="openWhatsApp('Hello Sendur Agro Marketing, I visited your website and have a query.')" class="float-wa" aria-label="Chat on WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <!-- FontAwesome WhatsApp Icon Path -->
-            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
-        </svg>
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/919965012131" target="_blank" class="floating-wa">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // ==========================================
-        // CONFIGURATION
-        // ==========================================
-        const WHATSAPP_NUMBER = "919965012131";
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
 
-        // ==========================================
-        // 1. PRODUCT DATABASE
-        // EDIT YOUR PRODUCTS HERE
-        // ==========================================
-        const products = [
-            {
-                id: 1,
-                name: "[Placeholder Product 1: Organic Manure]", 
-                category: "Organic Manure / Uram",
-                packSize: "5 kg", 
-                price: 150, 
-                discountPrice: null, 
-                image: "https://placehold.co/600x600/81c784/ffffff?text=[Placeholder+Image+1]", 
-                desc: "High-quality organic manure placeholder for enriching soil health. Suitable for home gardens.",
-                crops: "All crops and ornamental plants.",
-                regulated: false,
-                featured: true
-            },
-            {
-                id: 2,
-                name: "[Placeholder Product 2: Neem Extract]",
-                category: "Pest & Disease Control",
-                packSize: "250 ml",
-                price: 220,
-                discountPrice: 250,
-                image: "https://placehold.co/600x600/2e7d32/ffffff?text=[Placeholder+Image+2]",
-                desc: "Plant-based pest repellent placeholder. Refer to the official manufacturer label for exact targets and safety guidelines.",
-                crops: "Vegetables, fruits.",
-                manufacturer: "[Placeholder Manufacturer Ltd.]",
-                regulated: true, // Shows regulatory warning if true
-                featured: true
-            },
-            {
-                id: 3,
-                name: "[Placeholder Product 3: NPK Fertiliser]",
-                category: "Fertilisers",
-                packSize: "1 kg",
-                price: 300,
-                image: "https://placehold.co/600x600/ff9800/ffffff?text=[Placeholder+Image+3]",
-                desc: "Balanced plant nutrition placeholder. Contains Nitrogen, Phosphorus, and Potassium.",
-                crops: "General agricultural use.",
-                regulated: false,
-                featured: true
-            },
-            {
-                id: 4,
-                name: "[Placeholder Product 4: Hybrid Seeds]",
-                category: "Plants",
-                packSize: "10 grams",
-                price: 80,
-                image: "https://placehold.co/600x600/e53935/ffffff?text=[Placeholder+Image+4]",
-                desc: "High-yield seed placeholder suitable for tropical climates.",
-                crops: "Vegetables",
-                regulated: false,
-                featured: false
-            },
-            {
-                id: 5,
-                name: "[Placeholder Product 5: Garden Trowel]",
-                category: "Gardening Products",
-                packSize: "1 unit",
-                price: 120,
-                image: "https://placehold.co/600x600/757575/ffffff?text=[Placeholder+Image+5]",
-                desc: "Durable hand tool placeholder for digging and planting.",
-                crops: "N/A",
-                regulated: false,
-                featured: false
-            }
+    <!-- JavaScript Logic -->
+    <script>
+        /* ==================== PRODUCT DATABASE ==================== */
+        // Maintain structure, easy to edit.
+        const productsDB = [
+            { id: 1, name: 'Premium Neem Oil Extract', category: 'Pest & Disease Control', packSize: '250ml', mrp: 250, price: 199, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Neem+Oil', description: '100% organic neem oil for natural pest control in home gardens and farms. Effective against aphids, mealybugs, and mites.', crops: 'All indoor and outdoor plants', manufacturer: 'AgroOrganics', regulated: false, featured: true, badge: 'BEST VALUE' },
+            { id: 2, name: 'NPK 19-19-19 Water Soluble', category: 'Fertilisers', packSize: '1kg', mrp: 350, price: 290, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=NPK+19-19-19', description: 'Balanced water-soluble fertilizer for vegetative growth. Provides essential Nitrogen, Phosphorus, and Potassium.', crops: 'Vegetables, Fruits, Flowers', manufacturer: 'AgroChem', regulated: false, featured: true, badge: 'POPULAR' },
+            { id: 3, name: 'Vermicompost Organic Manure', category: 'Organic Manure', packSize: '5kg', mrp: 300, price: 220, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Vermicompost', description: 'Rich in organic carbon and beneficial microbes. Improves soil texture and water retention.', crops: 'Potted plants, garden beds', manufacturer: 'Sendur Naturals', regulated: false, featured: true, badge: 'SALE' },
+            { id: 4, name: 'Seaweed Liquid Extract', category: 'Plant Nutrition', packSize: '500ml', mrp: 400, price: 340, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Seaweed+Extract', description: 'Plant growth promoter extracted from seaweed. Enhances root development and stress tolerance.', crops: 'All crops', manufacturer: 'BioNutrients', regulated: false, featured: false, badge: '' },
+            { id: 5, name: 'Rose Plant (Hybrid Tea)', category: 'Plants', packSize: '1 Plant', mrp: 150, price: 120, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Rose+Plant', description: 'Healthy hybrid tea rose plant sapling, ready for potting. Beautiful blooms.', crops: 'Ornamental', manufacturer: 'Sendur Nursery', regulated: false, featured: true, badge: 'NEW' },
+            { id: 6, name: 'Systemic Fungicide (Carbendazim)', category: 'Pest & Disease Control', packSize: '100g', mrp: 180, price: 150, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Fungicide', description: 'Broad-spectrum systemic fungicide for controlling fungal diseases like powdery mildew.', crops: 'Grapes, Mango, Vegetables', manufacturer: 'CropProtect', regulated: true, featured: false, badge: '' },
+            { id: 7, name: 'Garden Hand Trowel', category: 'Gardening Products', packSize: '1 Unit', mrp: 200, price: 149, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Hand+Trowel', description: 'Durable metal hand trowel with ergonomic grip for digging and planting.', crops: 'N/A', manufacturer: 'GardenTools', regulated: false, featured: true, badge: '' },
+            { id: 8, name: 'Bone Meal Fertilizer', category: 'Organic Manure', packSize: '1kg', mrp: 180, price: 140, image: 'https://placehold.co/400x400/e8f5e9/15803d?text=Bone+Meal', description: 'Excellent source of organic phosphorus and calcium. Promotes strong root growth and flowering.', crops: 'Roses, Bulbs, Fruit trees', manufacturer: 'OrganicAgro', regulated: false, featured: false, badge: '' }
         ];
 
-        let cart = [];
+        const categories = [
+            { name: 'Plants', icon: 'fa-seedling' },
+            { name: 'Fertilisers', icon: 'fa-vial' },
+            { name: 'Organic Manure', icon: 'fa-leaf' },
+            { name: 'Plant Nutrition', icon: 'fa-apple-alt' },
+            { name: 'Pest & Disease Control', icon: 'fa-shield-alt' },
+            { name: 'Gardening Products', icon: 'fa-tools' }
+        ];
 
-        // ==========================================
-        // 2. UTILITY & NAVIGATION
-        // ==========================================
-        function toggleMenu() {
-            document.getElementById('nav-menu').classList.toggle('active');
-        }
+        const WHATSAPP_NUM = "919965012131";
 
-        // Added resetFilters param. If true, clears the search/filters before opening Shop.
-        function navigate(sectionId, resetFilters = false) {
-            // Close mobile menu if open
-            document.getElementById('nav-menu').classList.remove('active');
+        /* ==================== STATE MANAGEMENT ==================== */
+        let cart = JSON.parse(localStorage.getItem('sendur_cart')) || [];
+        let currentCategory = 'all';
+
+        /* ==================== INITIALIZATION ==================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderProducts(productsDB.filter(p => p.featured), 'featured-products');
+            renderProducts(productsDB, 'shop-products');
+            updateCartCount();
             
-            // Protect against empty cart navigation to checkout via weird states
-            if (sectionId === 'checkout' && cart.length === 0) {
-                alert("Your cart is empty!");
-                sectionId = 'cart';
-            }
-
-            const sections = ['home', 'shop', 'product-details', 'cart', 'checkout', 'about', 'contact'];
-            sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
-            
-            document.getElementById(sectionId).classList.remove('hidden');
-
-            if (sectionId === 'home') renderFeaturedProducts();
-            
-            if (sectionId === 'shop') {
-                if (resetFilters) {
-                    document.getElementById('search-input').value = '';
-                    document.getElementById('category-filter').value = 'All';
-                    document.getElementById('sort-filter').value = 'default';
+            // Handle browser back button
+            window.addEventListener('popstate', (e) => {
+                if(e.state && e.state.view) {
+                    showView(e.state.view);
                 }
-                filterProducts();
+            });
+        });
+
+        /* ==================== NAVIGATION LOGIC ==================== */
+        function navigateTo(view, updateHistory = true) {
+            window.scrollTo(0, 0);
+            
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`${view}-view`).classList.add('active');
+
+            if(view === 'cart') renderCart();
+            if(view === 'shop' && currentCategory === 'all') {
+                document.getElementById('shop-title').innerText = 'All Products';
+                renderProducts(productsDB, 'shop-products');
             }
+
+            if(updateHistory) {
+                history.pushState({ view: view }, '', `#${view}`);
+            }
+        }
+
+        function showView(view) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            if(document.getElementById(`${view}-view`)) {
+                document.getElementById(`${view}-view`).classList.add('active');
+            } else {
+                document.getElementById('home-view').classList.add('active');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-overlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        /* ==================== RENDERING LOGIC ==================== */
+        function renderCategories() {
+            const container = document.getElementById('home-categories');
+            container.innerHTML = categories.map(cat => `
+                <div class="category-card" onclick="filterByCategory('${cat.name}')">
+                    <i class="fas ${cat.icon} category-icon"></i>
+                    <div class="category-name">${cat.name}</div>
+                </div>
+            `).join('');
+        }
+
+        function calculateDiscount(mrp, price) {
+            if(!mrp || price >= mrp) return 0;
+            return Math.round(((mrp - price) / mrp) * 100);
+        }
+
+        function renderProducts(productsArray, containerId) {
+            const container = document.getElementById(containerId);
             
-            if (sectionId === 'cart') renderCart();
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function goToCategory(categoryName) {
-            navigate('shop', true);
-            document.getElementById('category-filter').value = categoryName;
-            filterProducts();
-        }
-
-        function openWhatsApp(message) {
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-        }
-
-        // ==========================================
-        // 3. RENDER PRODUCTS (SHOP & HOME)
-        // ==========================================
-        function renderFeaturedProducts() {
-            const featured = products.filter(p => p.featured).slice(0, 4); // Max 4 featured
-            renderProducts(featured, 'featured-grid');
-        }
-
-        function renderProducts(productsToRender, containerId) {
-            const grid = document.getElementById(containerId);
-            grid.innerHTML = '';
-            
-            if(productsToRender.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No products found matching your criteria.</p>';
+            if(productsArray.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fas fa-box-open" style="font-size: 40px; color: var(--text-light); margin-bottom: 15px;"></i>
+                        <h3>No products found</h3>
+                        <p style="color: var(--text-gray); margin-top: 10px;">Try adjusting your filters or search criteria.</p>
+                    </div>
+                `;
                 return;
             }
 
-            productsToRender.forEach(p => {
-                let priceHtml = p.discountPrice 
-                    ? `<span class="discount">₹${p.discountPrice}</span> ₹${p.price}`
-                    : `₹${p.price}`;
+            container.innerHTML = productsArray.map(p => {
+                const discount = calculateDiscount(p.mrp, p.price);
+                let priceHtml = `<div class="price">₹${p.price}</div>`;
+                if(discount > 0) {
+                    priceHtml += `<div class="mrp">₹${p.mrp}</div><div class="discount">${discount}% OFF</div>`;
+                }
 
-                let badgeHtml = p.discountPrice ? `<span class="product-badge">Sale</span>` : '';
+                let badgeHtml = '';
+                if(p.badge) {
+                    badgeHtml = `<div class="badge-sale">${p.badge}</div>`;
+                } else if(discount >= 20) {
+                    badgeHtml = `<div class="badge-sale">SALE</div>`;
+                }
 
-                grid.innerHTML += `
+                return `
                     <div class="product-card">
                         ${badgeHtml}
-                        <img src="${p.image}" alt="${p.name}" class="product-img" onclick="viewProduct(${p.id})">
+                        <img src="${p.image}" alt="${p.name}" class="product-image" onclick="viewProduct(${p.id})">
                         <div class="product-info">
-                            <span class="product-cat">${p.category}</span>
-                            <h3 class="product-title" onclick="viewProduct(${p.id})">${p.name}</h3>
-                            <span class="product-pack">Pack Size: ${p.packSize}</span>
-                            <div class="price-wrap">${priceHtml}</div>
-                            
-                            <div class="card-actions">
-                                <div class="qty-wrapper" style="width:100%; justify-content: space-between;">
-                                    <button class="qty-btn" onclick="updateInputQty('qty-input-${containerId}-${p.id}', -1)">-</button>
-                                    <input type="number" id="qty-input-${containerId}-${p.id}" class="qty-input" value="1" min="1" readonly>
-                                    <button class="qty-btn" onclick="updateInputQty('qty-input-${containerId}-${p.id}', 1)">+</button>
-                                </div>
-                                <button class="btn" style="width:100%" onclick="addToCartFromCard(${p.id}, 'qty-input-${containerId}-${p.id}')">Add to Cart</button>
+                            <div class="product-category">${p.category}</div>
+                            <div class="product-name" onclick="viewProduct(${p.id})">${p.name}</div>
+                            <div class="product-pack">${p.packSize}</div>
+                            <div class="product-price-row">${priceHtml}</div>
+                            <div class="product-actions">
+                                <button class="btn-cart" onclick="addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Add</button>
+                                <button class="btn-buy-wa" onclick="buyOnWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i> Buy</button>
                             </div>
                         </div>
                     </div>
                 `;
-            });
+            }).join('');
         }
 
-        function filterProducts() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const category = document.getElementById('category-filter').value;
-            const sort = document.getElementById('sort-filter').value;
-
-            // Using array.slice() or just filter guarantees we don't mutate original data
-            let filtered = products.filter(p => {
-                const matchName = p.name.toLowerCase().includes(query);
-                const matchCat = category === 'All' || p.category === category;
-                return matchName && matchCat;
-            });
-
-            if (sort === 'low') filtered.sort((a, b) => a.price - b.price);
-            if (sort === 'high') filtered.sort((a, b) => b.price - a.price);
-
-            renderProducts(filtered, 'product-grid');
-        }
-
-        // ==========================================
-        // 4. PRODUCT DETAILS
-        // ==========================================
+        /* ==================== PRODUCT ACTIONS ==================== */
         function viewProduct(id) {
-            const p = products.find(prod => prod.id === id);
-            const container = document.getElementById('details-container');
-            
-            let regNotice = p.regulated ? 
-                `<div class="reg-notice">
-                    <strong>Regulatory Notice:</strong> This is a regulated agricultural product. Please rely strictly on the manufacturer's label attached to the physical product for dosage, application instructions, and safety protocols. Do not exceed recommended usage.
-                </div>` : '';
+            const product = productsDB.find(p => p.id === id);
+            if(!product) return;
 
-            let priceHtml = p.discountPrice 
-                    ? `<span class="discount" style="font-size:1.2rem;">₹${p.discountPrice}</span> ₹${p.price}`
-                    : `₹${p.price}`;
+            const container = document.getElementById('product-details-content');
+            const discount = calculateDiscount(product.mrp, product.price);
+            
+            let priceHtml = `<div style="font-size: 28px; font-weight: 700; color: var(--text-dark);">₹${product.price}</div>`;
+            if(discount > 0) {
+                priceHtml += `<div style="font-size: 16px; color: var(--text-light); text-decoration: line-through;">MRP: ₹${product.mrp}</div>
+                              <div style="font-size: 14px; font-weight: 700; color: var(--primary);">Save ${discount}%</div>`;
+            }
+
+            let regNotice = '';
+            if(product.regulated) {
+                regNotice = `<div class="regulatory-notice"><i class="fas fa-exclamation-triangle"></i> This product is regulated. Usage instructions provided by the manufacturer must be followed strictly.</div>`;
+            }
 
             container.innerHTML = `
-                <div>
-                    <img src="${p.image}" alt="${p.name}" class="details-img">
+                <div class="pd-image-section">
+                    <img src="${product.image}" alt="${product.name}" class="pd-image">
                 </div>
-                <div>
-                    <span class="product-cat">${p.category}</span>
-                    <h2 style="font-size: 2rem; margin: 10px 0;">${p.name}</h2>
-                    <div style="font-size: 1.8rem; color: var(--primary-dark); font-weight: bold; margin-bottom: 20px;">${priceHtml}</div>
+                <div class="pd-info-section">
+                    <div style="text-transform: uppercase; font-size: 12px; color: var(--text-gray); margin-bottom: 5px; font-weight: 700; letter-spacing: 1px;">${product.category}</div>
+                    <h1 class="pd-title">${product.name}</h1>
+                    <div class="pd-meta">
+                        Pack Size: <strong style="color: var(--text-dark);">${product.packSize}</strong> | 
+                        Brand: <strong style="color: var(--text-dark);">${product.manufacturer}</strong>
+                    </div>
                     
-                    <ul class="info-list">
-                        <li><strong>Available Pack Size:</strong> ${p.packSize}</li>
-                        ${p.manufacturer ? `<li><strong>Manufacturer:</strong> ${p.manufacturer}</li>` : ''}
-                        <li><strong>Suitable for:</strong> ${p.crops}</li>
-                    </ul>
-                    
-                    <p style="margin: 20px 0; color: var(--text-light);">${p.desc}</p>
+                    <div style="display: flex; align-items: baseline; gap: 15px; margin-bottom: 25px; background: var(--bg-body); padding: 15px; border-radius: var(--border-radius);">
+                        ${priceHtml}
+                    </div>
+
                     ${regNotice}
-                    
-                    <div style="display:flex; gap:15px; margin-top:30px; flex-wrap: wrap;">
-                        <div class="qty-wrapper" style="margin:0;">
-                            <button class="qty-btn" onclick="updateInputQty('details-qty', -1)">-</button>
-                            <input type="number" id="details-qty" class="qty-input" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="updateInputQty('details-qty', 1)">+</button>
+
+                    <div class="qty-selector">
+                        <button class="qty-btn" onclick="updatePdQty(-1)">-</button>
+                        <input type="text" class="qty-input" id="pd-qty" value="1" readonly>
+                        <button class="qty-btn" onclick="updatePdQty(1)">+</button>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+                        <button class="btn-primary" style="flex: 1; min-width: 200px; padding: 15px; font-size: 16px; justify-content: center;" onclick="addPdToCart(${product.id})"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="btn-whatsapp" style="flex: 1; min-width: 200px; padding: 15px; font-size: 16px; justify-content: center;" onclick="buyPdOnWhatsApp(${product.id})"><i class="fab fa-whatsapp"></i> Order on WhatsApp</button>
+                    </div>
+
+                    <div class="pd-desc">
+                        <h3 style="color: var(--text-dark); margin-bottom: 10px; font-size: 16px;">Product Description</h3>
+                        <p>${product.description}</p>
+                        <div style="margin-top: 15px;">
+                            <strong>Suitable for:</strong> ${product.crops}
                         </div>
-                        <button class="btn" style="flex: 1; min-width: 200px;" onclick="addToCartFromCard(${p.id}, 'details-qty')">Add to Cart</button>
                     </div>
                 </div>
             `;
-            navigate('product-details');
+            navigateTo('product');
         }
 
-        function updateInputQty(inputId, delta) {
-            const input = document.getElementById(inputId);
-            let val = parseInt(input.value) + delta;
-            if (val < 1) val = 1;
+        function updatePdQty(change) {
+            const input = document.getElementById('pd-qty');
+            let val = parseInt(input.value) + change;
+            if(val < 1) val = 1;
+            if(val > 50) val = 50;
             input.value = val;
         }
 
-        // ==========================================
-        // 5. CART LOGIC
-        // ==========================================
-        function addToCartFromCard(id, inputId) {
-            const qty = parseInt(document.getElementById(inputId).value);
-            addToCart(id, qty);
-            // Reset input after adding
-            document.getElementById(inputId).value = 1;
+        /* ==================== SEARCH & FILTER ==================== */
+        function filterByCategory(category) {
+            currentCategory = category;
+            const filtered = productsDB.filter(p => p.category === category);
+            document.getElementById('shop-title').innerText = category;
+            document.getElementById('shop-result-count').innerText = `Showing ${filtered.length} products in ${category}`;
+            renderProducts(filtered, 'shop-products');
+            navigateTo('shop');
         }
 
-        function addToCart(id, qtyToAdd) {
-            const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.id === id);
-            
-            if (existing) {
-                existing.qty += qtyToAdd;
-            } else {
-                cart.push({...product, qty: qtyToAdd});
+        function handleSearch(e) {
+            if(e.key === 'Enter') {
+                executeSearch(e.target.id === 'desktop-search' ? 'desktop' : 'mobile');
             }
+        }
+
+        function executeSearch(type) {
+            const query = document.getElementById(`${type}-search`).value.toLowerCase().trim();
+            if(!query) return;
+
+            const filtered = productsDB.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.category.toLowerCase().includes(query) ||
+                p.description.toLowerCase().includes(query)
+            );
+
+            currentCategory = 'search';
+            document.getElementById('shop-title').innerText = `Search Results for "${query}"`;
+            document.getElementById('shop-result-count').innerText = `Found ${filtered.length} products`;
+            renderProducts(filtered, 'shop-products');
+            navigateTo('shop');
+            
+            // clear inputs
+            document.getElementById('desktop-search').value = '';
+            document.getElementById('mobile-search').value = '';
+        }
+
+        function clearFilters() {
+            currentCategory = 'all';
+            document.getElementById('shop-title').innerText = 'All Products';
+            document.getElementById('shop-result-count').innerText = `Showing all products`;
+            renderProducts(productsDB, 'shop-products');
+        }
+
+        /* ==================== CART LOGIC ==================== */
+        function saveCart() {
+            localStorage.setItem('sendur_cart', JSON.stringify(cart));
             updateCartCount();
-            alert(`${qtyToAdd} x ${product.name} added to cart!`);
         }
 
         function updateCartCount() {
@@ -724,134 +1255,191 @@
             document.getElementById('cart-count').innerText = count;
         }
 
-        function changeCartQty(id, delta) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== id);
-                }
+        function addToCart(id, qty = 1) {
+            const product = productsDB.find(p => p.id === id);
+            if(!product) return;
+
+            const existing = cart.find(item => item.id === id);
+            if(existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ ...product, qty: qty });
             }
-            updateCartCount();
-            renderCart();
+            saveCart();
+            showToast(`${product.name} added to cart`);
         }
 
-        function removeItem(id) {
-            cart = cart.filter(i => i.id !== id);
-            updateCartCount();
-            renderCart();
+        function addPdToCart(id) {
+            const qty = parseInt(document.getElementById('pd-qty').value);
+            addToCart(id, qty);
         }
 
         function renderCart() {
-            const container = document.getElementById('cart-items');
-            const summarySec = document.getElementById('cart-summary-section');
-            const emptyMsg = document.getElementById('cart-empty-msg');
-            const totalEl = document.getElementById('cart-total');
+            const container = document.getElementById('cart-items-container');
+            const reviewContainer = document.getElementById('checkout-review-items'); // update checkout side too
             
-            container.innerHTML = '';
-            
-            if (cart.length === 0) {
-                summarySec.classList.add('hidden');
-                emptyMsg.classList.remove('hidden');
+            if(cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-basket empty-icon"></i>
+                        <h3>Your cart is empty</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 20px;">Looks like you haven't added anything yet.</p>
+                        <button class="btn-primary" onclick="navigateTo('shop')">Start Shopping</button>
+                    </div>
+                `;
+                document.getElementById('summary-items-total').innerText = '₹0';
+                document.getElementById('summary-grand-total').innerText = '₹0';
+                document.getElementById('btn-checkout').disabled = true;
+                document.getElementById('btn-checkout').style.opacity = '0.5';
+                
+                if(reviewContainer) reviewContainer.innerHTML = '';
+                document.getElementById('checkout-grand-total').innerText = '₹0';
                 return;
             }
 
-            summarySec.classList.remove('hidden');
-            emptyMsg.classList.add('hidden');
+            document.getElementById('btn-checkout').disabled = false;
+            document.getElementById('btn-checkout').style.opacity = '1';
 
             let total = 0;
+            let cartHtml = '';
+            let reviewHtml = '';
+
             cart.forEach(item => {
                 const subtotal = item.price * item.qty;
                 total += subtotal;
-                container.innerHTML += `
+                
+                cartHtml += `
                     <div class="cart-item">
                         <img src="${item.image}" alt="${item.name}" class="cart-item-img">
                         <div class="cart-item-info">
-                            <h4 style="margin-bottom:5px;">${item.name}</h4>
-                            <span class="product-pack">Pack: ${item.packSize}</span><br>
-                            <button class="remove-btn" onclick="removeItem(${item.id})">Remove</button>
+                            <div class="cart-item-title">${item.name}</div>
+                            <div style="font-size: 13px; color: var(--text-gray); margin-bottom: 10px;">${item.packSize}</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="cart-item-price">₹${item.price}</div>
+                                <div class="qty-selector" style="margin-bottom: 0;">
+                                    <button class="qty-btn" onclick="updateCartItemQty(${item.id}, -1)">-</button>
+                                    <input type="text" class="qty-input" value="${item.qty}" readonly>
+                                    <button class="qty-btn" onclick="updateCartItemQty(${item.id}, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="btn-remove" onclick="removeFromCart(${item.id})">Remove</button>
                         </div>
-                        <div class="qty-wrapper">
-                            <button class="qty-btn" onclick="changeCartQty(${item.id}, -1)">-</button>
-                            <input type="text" class="qty-input" value="${item.qty}" readonly>
-                            <button class="qty-btn" onclick="changeCartQty(${item.id}, 1)">+</button>
-                        </div>
-                        <div class="cart-item-price">₹${subtotal}</div>
                     </div>
                 `;
-            });
-            totalEl.innerText = total;
-        }
 
-        // ==========================================
-        // 6. CHECKOUT LOGIC
-        // ==========================================
-        function goToCheckout() {
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-            renderCheckoutSummary();
-            navigate('checkout');
-        }
-
-        function renderCheckoutSummary() {
-            const container = document.getElementById('checkout-items');
-            const totalEl = document.getElementById('checkout-total');
-            container.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-                container.innerHTML += `
-                    <div class="summary-item">
+                reviewHtml += `
+                    <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px;">
                         <span>${item.qty}x ${item.name} (${item.packSize})</span>
-                        <strong>₹${subtotal}</strong>
+                        <span style="font-weight: 500;">₹${subtotal}</span>
                     </div>
                 `;
             });
-            totalEl.innerText = total;
+
+            container.innerHTML = cartHtml;
+            document.getElementById('summary-items-total').innerText = `₹${total}`;
+            document.getElementById('summary-grand-total').innerText = `₹${total}`;
+            
+            if(reviewContainer) reviewContainer.innerHTML = reviewHtml;
+            document.getElementById('checkout-grand-total').innerText = `₹${total}`;
+        }
+
+        function updateCartItemQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if(item) {
+                item.qty += change;
+                if(item.qty <= 0) {
+                    removeFromCart(id);
+                } else {
+                    saveCart();
+                    renderCart();
+                }
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            renderCart();
+            showToast("Item removed from cart");
+        }
+
+        function proceedToCheckout() {
+            if(cart.length === 0) return;
+            navigateTo('checkout');
+        }
+
+        /* ==================== WHATSAPP CHECKOUT LOGIC ==================== */
+        function buyOnWhatsApp(id) {
+            const product = productsDB.find(p => p.id === id);
+            if(!product) return;
+            
+            const msg = `Hello Sendur Agro Marketing, I would like to order:\n\n*Product:* ${product.name}\n*Pack Size:* ${product.packSize}\n*Price:* ₹${product.price}\n\nPlease let me know the delivery details and total amount.`;
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function buyPdOnWhatsApp(id) {
+            const product = productsDB.find(p => p.id === id);
+            const qty = document.getElementById('pd-qty').value;
+            if(!product) return;
+            
+            const msg = `Hello Sendur Agro Marketing, I would like to order:\n\n*Product:* ${product.name}\n*Pack Size:* ${product.packSize}\n*Quantity:* ${qty}\n*Price:* ₹${product.price} (each)\n\nPlease let me know the delivery details.`;
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function processCheckout(e) {
             e.preventDefault();
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
+            if(cart.length === 0) {
+                showToast("Cart is empty!");
                 return;
             }
 
-            const name = document.getElementById('cust-name').value.trim();
-            const mobile = document.getElementById('cust-mobile').value.trim();
-            const address = document.getElementById('cust-address').value.trim();
+            const name = document.getElementById('cust-name').value;
+            const mobile = document.getElementById('cust-mobile').value;
+            const address = document.getElementById('cust-address').value;
+            const city = document.getElementById('cust-city').value;
+            const pin = document.getElementById('cust-pin').value;
+
+            let orderText = `*NEW ORDER - Sendur Agro Marketing*\n\n`;
+            orderText += `*Customer Details:*\nName: ${name}\nMobile: ${mobile}\n`;
+            orderText += `Address: ${address}, ${city} - ${pin}\n\n`;
             
-            let orderText = `*NEW ORDER - SENDUR AGRO MARKETING*\n\n`;
-            orderText += `*Customer Details:*\nName: ${name}\nMobile: ${mobile}\nAddress: ${address}\n\n`;
             orderText += `*Order Items:*\n`;
+            let total = 0;
             
-            let grandTotal = 0;
             cart.forEach((item, index) => {
                 const subtotal = item.price * item.qty;
-                grandTotal += subtotal;
+                total += subtotal;
                 orderText += `${index + 1}. ${item.name} (${item.packSize}) x ${item.qty} = ₹${subtotal}\n`;
             });
 
-            orderText += `\n*Total Amount: ₹${grandTotal}*\n\nPlease confirm my order.`;
+            orderText += `\n*Total Amount: ₹${total}*\n_(Plus applicable delivery charges)_\n\n`;
+            orderText += `Please confirm my order.`;
 
-            // Open correctly encoded WhatsApp link
-            openWhatsApp(orderText);
-
-            // Clear cart and safely reset site state only after generating order
-            cart = [];
-            updateCartCount();
-            navigate('home');
-            document.getElementById('checkout-form').reset();
+            // Open WhatsApp
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(orderText)}`, '_blank');
+            
+            // Clear cart after sending (optional, but good UX)
+            // cart = [];
+            // saveCart();
+            // navigateTo('home');
+            // showToast("Order sent via WhatsApp!");
         }
 
-        // Initialize App on load
-        window.onload = () => {
-            renderFeaturedProducts();
-        };
+        /* ==================== UTILITIES ==================== */
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle" style="color: #4ade80; margin-right: 8px;"></i> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
     </script>
 </body>
 </html>
