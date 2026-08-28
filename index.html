@@ -1459,3 +1459,922 @@
         </span>
     </div>
 </a>
+<style>
+/* ================= SENDUR AGRO AI ================= */
+
+.agro-ai-fab {
+    position: fixed;
+    right: 20px;
+    bottom: 85px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #15803d, #22c55e);
+    color: white;
+    border: 3px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    z-index: 9998;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.agro-ai-fab:hover {
+    transform: scale(1.08);
+}
+
+.agro-ai-fab .ai-leaf {
+    display: block;
+    font-size: 22px;
+    line-height: 20px;
+}
+
+.agro-ai-window {
+    position: fixed;
+    right: 20px;
+    bottom: 155px;
+    width: 360px;
+    max-width: calc(100vw - 30px);
+    height: 520px;
+    max-height: calc(100vh - 180px);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.25);
+    overflow: hidden;
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    border: 1px solid #e5e7eb;
+}
+
+.agro-ai-window.active {
+    display: flex;
+    animation: aiOpen .25s ease;
+}
+
+@keyframes aiOpen {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.agro-ai-header {
+    background: linear-gradient(135deg, #166534, #15803d);
+    color: white;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agro-ai-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.agro-ai-avatar {
+    width: 40px;
+    height: 40px;
+    background: white;
+    color: #15803d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.agro-ai-title {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.agro-ai-status {
+    font-size: 11px;
+    opacity: .9;
+}
+
+.agro-ai-close {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.agro-ai-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f8fafc;
+}
+
+.ai-message {
+    max-width: 85%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.ai-message.bot {
+    background: white;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+    border-top-left-radius: 4px;
+}
+
+.ai-message.user {
+    background: #15803d;
+    color: white;
+    margin-left: auto;
+    border-top-right-radius: 4px;
+}
+
+.ai-message strong {
+    font-weight: 700;
+}
+
+.agro-ai-quick {
+    padding: 8px 10px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+}
+
+.ai-quick-btn {
+    white-space: nowrap;
+    padding: 7px 10px;
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #166534;
+    border-radius: 20px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.ai-quick-btn:hover {
+    background: #dcfce7;
+}
+
+.agro-ai-input-area {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    gap: 7px;
+}
+
+.agro-ai-input {
+    flex: 1;
+    border: 1px solid #d1d5db;
+    border-radius: 22px;
+    padding: 10px 14px;
+    font-size: 13px;
+    min-width: 0;
+}
+
+.agro-ai-input:focus {
+    border-color: #15803d;
+    box-shadow: 0 0 0 2px #dcfce7;
+}
+
+.agro-ai-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #15803d;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.agro-ai-send:hover {
+    background: #166534;
+}
+
+.ai-typing {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.ai-typing span {
+    width: 6px;
+    height: 6px;
+    background: #9ca3af;
+    border-radius: 50%;
+    animation: aiDot 1s infinite;
+}
+
+.ai-typing span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.ai-typing span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes aiDot {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .agro-ai-window {
+        right: 10px;
+        left: 10px;
+        bottom: 145px;
+        width: auto;
+        height: 500px;
+        max-height: calc(100vh - 165px);
+    }
+
+    .agro-ai-fab {
+        right: 15px;
+        bottom: 78px;
+    }
+}
+</style>
+<!-- ================= SENDUR AGRO AI ASSISTANT ================= -->
+
+<button id="agro-ai-fab"
+        class="agro-ai-fab"
+        aria-label="Open Sendur Agro AI Assistant"
+        onclick="toggleAgroAI()">
+    <span class="ai-leaf">🌱</span>
+    AI
+</button>
+
+<div id="agro-ai-window" class="agro-ai-window">
+
+    <div class="agro-ai-header">
+
+        <div class="agro-ai-brand">
+            <div class="agro-ai-avatar">🌱</div>
+
+            <div>
+                <div class="agro-ai-title">
+                    Sendur Agro AI
+                </div>
+
+                <div class="agro-ai-status">
+                    ● Online • Plant Assistant
+                </div>
+            </div>
+        </div>
+
+        <button class="agro-ai-close"
+                onclick="toggleAgroAI()">
+            <i class="fas fa-times"></i>
+        </button>
+
+    </div>
+
+    <div id="agro-ai-messages"
+         class="agro-ai-messages">
+
+        <div class="ai-message bot">
+            🌱 <strong>Vanakkam!</strong><br><br>
+
+            நான் <strong>Sendur Agro AI Assistant</strong>.
+            உங்கள் plants, fertilisers, organic manure மற்றும்
+            gardening products பற்றி உதவுகிறேன்.
+            <br><br>
+
+            நீங்கள் Tamil அல்லது English-ல் கேட்கலாம்.
+            உதாரணம்:
+            <br>
+            • Rose plantக்கு என்ன fertilizer?
+            <br>
+            • Neem oil price?
+            <br>
+            • Cart எப்படி order செய்வது?
+        </div>
+
+    </div>
+
+    <div class="agro-ai-quick">
+
+        <button class="ai-quick-btn"
+                onclick="sendQuickAI('Available products')">
+            🛍 Products
+        </button>
+
+        <button class="ai-quick-btn"
+                onclick="sendQuickAI('Show fertilisers')">
+            🌱 Fertilisers
+        </button>
+
+        <button class="ai-quick-btn"
+                onclick="sendQuickAI('Show organic manure')">
+            🍃 Organic
+        </button>
+
+        <button class="ai-quick-btn"
+                onclick="sendQuickAI('How to order?')">
+            📲 How to Order
+        </button>
+
+    </div>
+
+    <div class="agro-ai-input-area">
+
+        <input
+            id="agro-ai-input"
+            class="agro-ai-input"
+            type="text"
+            placeholder="Ask Sendur Agro AI..."
+            onkeypress="handleAgroAIKey(event)"
+        >
+
+        <button
+            class="agro-ai-send"
+            onclick="sendAgroAI()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+
+    </div>
+
+</div>
+/* ==================== SENDUR AGRO AI ==================== */
+
+function toggleAgroAI() {
+
+    const aiWindow = document.getElementById('agro-ai-window');
+
+    aiWindow.classList.toggle('active');
+
+    if (aiWindow.classList.contains('active')) {
+
+        setTimeout(() => {
+            document.getElementById('agro-ai-input').focus();
+        }, 200);
+
+    }
+}
+
+
+function handleAgroAIKey(event) {
+
+    if (event.key === 'Enter') {
+        sendAgroAI();
+    }
+
+}
+
+
+function sendQuickAI(message) {
+
+    document.getElementById('agro-ai-input').value = message;
+
+    sendAgroAI();
+
+}
+
+
+function addAIMessage(message, type = 'bot') {
+
+    const container =
+        document.getElementById('agro-ai-messages');
+
+    const div = document.createElement('div');
+
+    div.className = `ai-message ${type}`;
+
+    div.innerHTML = message;
+
+    container.appendChild(div);
+
+    container.scrollTop = container.scrollHeight;
+
+}
+
+
+function showAITyping() {
+
+    const container =
+        document.getElementById('agro-ai-messages');
+
+    const div = document.createElement('div');
+
+    div.id = 'ai-typing-message';
+
+    div.className = 'ai-message bot';
+
+    div.innerHTML = `
+        <div class="ai-typing">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+
+    container.appendChild(div);
+
+    container.scrollTop = container.scrollHeight;
+
+}
+
+
+function removeAITyping() {
+
+    const typing =
+        document.getElementById('ai-typing-message');
+
+    if (typing) {
+        typing.remove();
+    }
+
+}
+
+
+function sendAgroAI() {
+
+    const input =
+        document.getElementById('agro-ai-input');
+
+    const question =
+        input.value.trim();
+
+    if (!question) return;
+
+    addAIMessage(question, 'user');
+
+    input.value = '';
+
+    showAITyping();
+
+    setTimeout(() => {
+
+        removeAITyping();
+
+        const answer =
+            generateAgroAIResponse(question);
+
+        addAIMessage(answer, 'bot');
+
+    }, 500);
+
+}
+
+
+function generateAgroAIResponse(question) {
+
+    const q = question.toLowerCase();
+
+
+    /* Greeting */
+
+    if (
+        q.includes('hello') ||
+        q.includes('hi') ||
+        q.includes('vanakkam') ||
+        q.includes('வணக்கம்')
+    ) {
+
+        return `
+        🌱 <strong>Vanakkam!</strong><br><br>
+        Sendur Agro AI-க்கு வரவேற்கிறேன்.
+        <br><br>
+        உங்கள் plant அல்லது product பற்றி
+        கேளுங்கள். நான் உதவுகிறேன்.
+        `;
+
+    }
+
+
+    /* Product search */
+
+    if (
+        q.includes('product') ||
+        q.includes('products') ||
+        q.includes('available') ||
+        q.includes('என்ன product') ||
+        q.includes('products என்ன')
+    ) {
+
+        let html = `
+        🛍️ <strong>Available Products:</strong><br><br>
+        `;
+
+        productsDB.forEach(p => {
+
+            html += `
+            🌱 ${p.name}
+            — <strong>₹${p.price}</strong><br>
+            <small>${p.packSize}</small>
+            <br><br>
+            `;
+
+        });
+
+        return html;
+
+    }
+
+
+    /* Fertiliser */
+
+    if (
+        q.includes('fertiliser') ||
+        q.includes('fertilizer') ||
+        q.includes('உரம்') ||
+        q.includes('fertiliser')
+    ) {
+
+        const products =
+            productsDB.filter(
+                p => p.category === 'Fertilisers'
+            );
+
+        if (!products.length) {
+            return `🌱 தற்போது fertiliser products இல்லை.`;
+        }
+
+        return `
+        🌱 <strong>Fertilisers:</strong><br><br>
+        ${products.map(p =>
+            `• ${p.name} — <strong>₹${p.price}</strong> (${p.packSize})`
+        ).join('<br>')}
+        `;
+
+    }
+
+
+    /* Organic */
+
+    if (
+        q.includes('organic') ||
+        q.includes('vermicompost') ||
+        q.includes('bone meal') ||
+        q.includes('ஆர்கானிக்')
+    ) {
+
+        const products =
+            productsDB.filter(
+                p => p.category === 'Organic Manure'
+            );
+
+        return `
+        🍃 <strong>Organic Manure Products:</strong><br><br>
+        ${products.map(p =>
+            `• ${p.name} — <strong>₹${p.price}</strong>`
+        ).join('<br>')}
+        `;
+
+    }
+
+
+    /* Neem */
+
+    if (
+        q.includes('neem') ||
+        q.includes('வேப்ப')
+    ) {
+
+        const product =
+            productsDB.find(
+                p => p.name.toLowerCase().includes('neem')
+            );
+
+        if (product) {
+
+            return `
+            🌿 <strong>${product.name}</strong><br><br>
+
+            💰 Price: <strong>₹${product.price}</strong><br>
+            📦 Pack: ${product.packSize}<br><br>
+
+            ${product.description}
+            <br><br>
+
+            <button
+                onclick="buyOnWhatsApp(${product.id})"
+                style="
+                    background:#25D366;
+                    color:white;
+                    padding:8px 12px;
+                    border-radius:6px;
+                    font-weight:700;
+                ">
+                <i class="fab fa-whatsapp"></i>
+                Order on WhatsApp
+            </button>
+            `;
+
+        }
+
+    }
+
+
+    /* Rose */
+
+    if (
+        q.includes('rose') ||
+        q.includes('ரோஸ்')
+    ) {
+
+        const product =
+            productsDB.find(
+                p => p.name.toLowerCase().includes('rose')
+            );
+
+        if (product) {
+
+            return `
+            🌹 <strong>${product.name}</strong><br><br>
+
+            💰 Price: <strong>₹${product.price}</strong><br>
+            📦 ${product.packSize}<br><br>
+
+            ${product.description}
+            <br><br>
+
+            <button
+                onclick="buyOnWhatsApp(${product.id})"
+                style="
+                    background:#25D366;
+                    color:white;
+                    padding:8px 12px;
+                    border-radius:6px;
+                    font-weight:700;
+                ">
+                <i class="fab fa-whatsapp"></i>
+                Order on WhatsApp
+            </button>
+            `;
+
+        }
+
+    }
+
+
+    /* Price */
+
+    if (
+        q.includes('price') ||
+        q.includes('rate') ||
+        q.includes('cost') ||
+        q.includes('விலை') ||
+        q.includes('ரேட்')
+    ) {
+
+        let found = null;
+
+        productsDB.forEach(p => {
+
+            const words =
+                p.name.toLowerCase().split(' ');
+
+            words.forEach(word => {
+
+                if (
+                    word.length > 3 &&
+                    q.includes(word)
+                ) {
+                    found = p;
+                }
+
+            });
+
+        });
+
+        if (found) {
+
+            return `
+            💰 <strong>${found.name}</strong><br><br>
+
+            Selling Price:
+            <strong>₹${found.price}</strong>
+            <br>
+
+            Pack Size:
+            ${found.packSize}
+            `;
+
+        }
+
+        return `
+        💰 Product price தெரிந்துகொள்ள
+        product name-ஐ சொல்லுங்கள்.
+        <br><br>
+        Example:
+        <strong>Neem oil price?</strong>
+        `;
+
+    }
+
+
+    /* Cart */
+
+    if (
+        q.includes('cart') ||
+        q.includes('கார்ட்')
+    ) {
+
+        const count =
+            cart.reduce(
+                (sum, item) => sum + item.qty,
+                0
+            );
+
+        if (count === 0) {
+
+            return `
+            🛒 உங்கள் cart இப்போது empty.
+            <br><br>
+
+            Products-ல் <strong>Add</strong>
+            button அழுத்தி cart-ல் சேர்க்கலாம்.
+            `;
+
+        }
+
+        return `
+        🛒 உங்கள் cart-ல்
+        <strong>${count}</strong> item(s) உள்ளது.
+        <br><br>
+
+        Cart icon-ஐ click செய்து
+        checkout செய்யலாம்.
+        `;
+
+    }
+
+
+    /* Order */
+
+    if (
+        q.includes('order') ||
+        q.includes('buy') ||
+        q.includes('வாங்க') ||
+        q.includes('ஆர்டர்') ||
+        q.includes('how to order')
+    ) {
+
+        return `
+        📲 <strong>Order செய்வது மிகவும் easy!</strong>
+        <br><br>
+
+        1️⃣ Product select செய்யுங்கள்
+        <br>
+        2️⃣ <strong>Add to Cart</strong> அழுத்துங்கள்
+        <br>
+        3️⃣ Cart-க்கு செல்லுங்கள்
+        <br>
+        4️⃣ Checkout details fill செய்யுங்கள்
+        <br>
+        5️⃣ <strong>Send Order on WhatsApp</strong>
+        அழுத்துங்கள்.
+        <br><br>
+
+        அல்லது product-ல்
+        <strong>Buy on WhatsApp</strong>
+        button பயன்படுத்தலாம்.
+        `;
+
+    }
+
+
+    /* WhatsApp */
+
+    if (
+        q.includes('whatsapp') ||
+        q.includes('contact') ||
+        q.includes('phone') ||
+        q.includes('number') ||
+        q.includes('தொடர்பு')
+    ) {
+
+        return `
+        📲 <strong>Sendur Agro Marketing</strong>
+        <br><br>
+
+        WhatsApp:
+        <strong>+91 99650 12131</strong>
+        <br><br>
+
+        <button
+            onclick="window.open(
+                'https://wa.me/919965012131',
+                '_blank'
+            )"
+            style="
+                background:#25D366;
+                color:white;
+                padding:9px 14px;
+                border-radius:6px;
+                font-weight:700;
+            ">
+            <i class="fab fa-whatsapp"></i>
+            Chat on WhatsApp
+        </button>
+        `;
+
+    }
+
+
+    /* Location */
+
+    if (
+        q.includes('location') ||
+        q.includes('address') ||
+        q.includes('where') ||
+        q.includes('இடம்') ||
+        q.includes('முகவரி')
+    ) {
+
+        return `
+        📍 <strong>Sendur Agro Marketing</strong>
+        <br><br>
+
+        Vadakkadu, Kottai,
+        Attur, Salem,
+        Tamil Nadu, India.
+        <br><br>
+
+        📞 +91 99650 12131
+        `;
+
+    }
+
+
+    /* Plant help */
+
+    if (
+        q.includes('plant') ||
+        q.includes('செடி') ||
+        q.includes('தாவரம்') ||
+        q.includes('grow') ||
+        q.includes('growth')
+    ) {
+
+        return `
+        🌱 Plant care-க்கு சரியான product
+        தேர்வு செய்ய நான் உதவுகிறேன்.
+        <br><br>
+
+        உங்கள் plant name மற்றும்
+        problem-ஐ சொல்லுங்கள்.
+        <br><br>
+
+        Example:
+        <br>
+        <strong>
+        "Rose plant leaves yellow ஆகுது"
+        </strong>
+        <br><br>
+
+        Product recommendation-க்கு
+        அருகிலுள்ள agricultural expert-ஐ
+        அணுகுவதும் நல்லது.
+        `;
+
+    }
+
+
+    /* Default */
+
+    return `
+    🌱 உங்கள் கேள்வியை இன்னும் கொஞ்சம்
+    தெளிவாக சொல்லுங்கள்.
+    <br><br>
+
+    நான் இதைப் பற்றி உதவ முடியும்:
+    <br>
+    🛍️ Products
+    <br>
+    🌱 Fertilisers
+    <br>
+    🍃 Organic Manure
+    <br>
+    🌿 Plant Nutrition
+    <br>
+    🐛 Pest Control
+    <br>
+    🛒 Cart & Ordering
+    <br>
+    📲 WhatsApp
+    <br><br>
+
+    Example:
+    <strong>"Neem oil price?"</strong>
+    `;
+
+}
